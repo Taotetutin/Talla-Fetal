@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - femur corto top</title>
+  <title>CodePen - Talla Fetal</title>
   
 
 </head>
@@ -13,195 +13,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnóstico Certero de Fémur Corto</title>
+    <title>Calculadora de Talla Fetal </title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #F0F2F5;
-            background-image: url("data:image/svg+xml,%3Csvg width='12' height='24' viewBox='0 0 12 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23727A95' fill-opacity='0.3'%3E%3Cpath d='M2 0h2v12H2V0zm1 20c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM9 8c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-1 4h2v12H8V12z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            color: #2C3E50;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             margin: 0;
-            padding: 20px;
             perspective: 1000px;
         }
         .container {
-            background-color: #FFFFFF;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            max-width: 600px;
-            margin: 0 auto;
-            transform: rotateY(5deg) rotateX(5deg);
-            transition: transform 0.5s ease;
+            background: linear-gradient(145deg, #e6e6e6, #ffffff);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 20px 20px 60px #d1d9e6, -20px -20px 60px #ffffff;
+            transform: rotateX(10deg) rotateY(-10deg);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
         }
         .container:hover {
-            transform: rotateY(0deg) rotateX(0deg);
+            transform: rotateX(0deg) rotateY(0deg);
         }
         h1 {
-            color: #1ABC9C;
+            color: #4a90e2;
             text-align: center;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 20px;
         }
         label {
             display: block;
-            margin-top: 10px;
-            color: #34495E;
+            margin-bottom: 5px;
+            color: #5a6d8f;
         }
         input {
             width: 100%;
             padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #D0D3D4;
-            border-radius: 4px;
-            background-color: #F8F9F9;
-            color: #34495E;
+            border: none;
+            border-radius: 10px;
+            background-color: #e0e9f5;
+            color: #333;
         }
         button {
-            background-color: #1ABC9C;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin-top: 20px;
-            border-radius: 4px;
-            cursor: pointer;
             width: 100%;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #4a90e2;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: #16A085;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #357abd;
         }
-        #results {
+        #result {
             margin-top: 20px;
-            background-color: #F8F9F9;
             padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transform: translateZ(20px);
-        }
-        .footer {
-            margin-top: 20px;
+            background-color: #e0e9f5;
+            border-radius: 10px;
             text-align: center;
-            font-size: 0.9em;
-            color: #34495E;
+            font-weight: bold;
+            color: #4a90e2;
         }
-        .copyright {
-            margin-top: 20px;
+        footer {
             text-align: center;
-            font-size: 0.8em;
-            color: #2C3E50;
+            color: #5a6d8f;
+            padding: 10px;
+            width: 100%;
+            background-color: #e0e9f5;
+            border-radius: 10px 10px 0 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Diagnóstico Certero de Fémur Corto</h1>
-        <form id="femurForm">
-            <label for="weeks">Edad Gestacional (Semanas):</label>
-            <input type="number" id="weeks" min="14" max="39" required>
-            
-            <label for="days">Edad Gestacional (Días):</label>
-            <input type="number" id="days" min="0" max="6" required>
-            
-            <label for="femurLength">Longitud de Fémur (mm):</label>
-            <input type="number" id="femurLength" step="0.1" required>
-            
-            <label for="cardiacCircumference">Circunferencia Cardíaca (mm):</label>
-            <input type="number" id="cardiacCircumference" step="0.1" required>
-            
-            <label for="cerebellumLength">Longitud de Cerebelo (mm):</label>
-            <input type="number" id="cerebellumLength" step="0.1" required>
-            
-            <label for="footLength">Longitud de Pie (mm):</label>
-            <input type="number" id="footLength" step="0.1" required>
-            
-            <button type="submit">Calcular</button>
-        </form>
-        
-        <div id="results"></div>
-        
-        <p class="footer">Si la edad gestacional es segura basta con el valor de la longitud de fémur "Bajo Pc1".</p>
-        <p class="copyright">Derechos reservados a MiMaternoFetal.cl</p>
+        <h1>Calculadora de Talla Fetal </h1>
+        <div class="input-group">
+            <label for="femur">Longitud del Fémur (cm):</label>
+            <input type="number" id="femur" step="0.01" required>
+        </div>
+        <button onclick="calcularTallaFetal()">Calcular Talla Fetal</button>
+        <div id="result"></div>
     </div>
 
+    <footer>
+        Derechos reservados a MiMaternoFetal.cl
+    </footer>
+
     <script>
-        const femurLengthData = {
-            12: {P5: 4, P50: 8, P95: 13},
-            13: {P5: 6, P50: 11, P95: 16},
-            14: {P5: 9, P50: 14, P95: 18},
-            15: {P5: 12, P50: 17, P95: 21},
-            16: {P5: 15, P50: 20, P95: 24},
-            17: {P5: 18, P50: 23, P95: 27},
-            18: {P5: 21, P50: 22, P95: 30},
-            19: {P5: 24, P50: 28, P95: 33},
-            20: {P5: 26, P50: 31, P95: 36},
-            21: {P5: 29, P50: 34, P95: 38},
-            22: {P5: 32, P50: 36, P95: 41},
-            23: {P5: 35, P50: 39, P95: 44},
-            24: {P5: 37, P50: 42, P95: 46},
-            25: {P5: 40, P50: 44, P95: 49},
-            26: {P5: 42, P50: 47, P95: 51},
-            27: {P5: 45, P50: 49, P95: 54},
-            28: {P5: 47, P50: 52, P95: 56},
-            29: {P5: 50, P50: 54, P95: 59},
-            30: {P5: 52, P50: 56, P95: 61},
-            31: {P5: 54, P50: 59, P95: 63},
-            32: {P5: 56, P50: 61, P95: 65},
-            33: {P5: 58, P50: 63, P95: 67},
-            34: {P5: 60, P50: 65, P95: 69},
-            35: {P5: 62, P50: 67, P95: 71},
-            36: {P5: 64, P50: 68, P95: 73},
-            37: {P5: 65, P50: 70, P95: 74},
-            38: {P5: 67, P50: 71, P95: 76},
-            39: {P5: 68, P50: 73, P95: 77},
-            40: {P5: 70, P50: 74, P95: 79}
-        };
-
-        function calculatePercentile(weeks, femurLength) {
-            const weekData = femurLengthData[weeks];
-            if (!weekData) return null;
-
-            if (femurLength < weekData.P5) return "< P5";
-            if (femurLength <= weekData.P50) return "P5-P50";
-            if (femurLength <= weekData.P95) return "P50-P95";
-            return "> P95";
+        function calcularTallaFetal() {
+            const femur = parseFloat(document.getElementById('femur').value);
+            if (isNaN(femur) || femur <= 0) {
+                alert('Por favor, ingrese una longitud de fémur válida.');
+                return;
+            }
+            const tallaFetal = 6.18 + (0.59 * femur);
+            document.getElementById('result').innerHTML = `La talla fetal estimada es: ${tallaFetal.toFixed(2)} cm`;
         }
-
-        function calculateP1(weeks) {
-            const p5 = femurLengthData[weeks].P5;
-            return Math.round(p5 * 0.8 * 10) / 10;
-        }
-
-        document.getElementById('femurForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const weeks = parseInt(document.getElementById('weeks').value);
-            const days = parseInt(document.getElementById('days').value);
-            const femurLength = parseFloat(document.getElementById('femurLength').value);
-            const cardiacCircumference = parseFloat(document.getElementById('cardiacCircumference').value);
-            const cerebellumLength = parseFloat(document.getElementById('cerebellumLength').value);
-            const footLength = parseFloat(document.getElementById('footLength').value);
-
-            const percentile = calculatePercentile(weeks, femurLength);
-            const p1 = calculateP1(weeks);
-            const femurFootRatio = (femurLength / footLength).toFixed(2);
-            const femurCardiacRatio = (femurLength / cardiacCircumference).toFixed(2);
-            const femurCerebellumRatio = (femurLength / cerebellumLength).toFixed(2);
-
-            const resultsHtml = `
-                <h2>Resultados:</h2>
-                <p>Edad Gestacional: ${weeks} semanas ${days} días</p>
-                <p>Percentil 5 para la edad gestacional: ${femurLengthData[weeks].P5} mm</p>
-                <p>Percentil 1 para la edad gestacional: ${p1} mm</p>
-                <p>Longitud del fémur: ${femurLength} mm (${percentile})</p>
-                <p>Relación fémur/pie: ${femurFootRatio} (normal: >1.0)</p>
-                <p>Relación fémur/circunferencia cardíaca: ${femurCardiacRatio} (normal: >0.5)</p>
-                <p>Relación fémur/cerebelo: ${femurCerebellumRatio} (normal: >1.5)</p>
-            `;
-
-            document.getElementById('results').innerHTML = resultsHtml;
-        });
     </script>
 </body>
 </html>
