@@ -1,23 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - Talla Fetal</title>
-  
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Talla Fetal </title>
+    <title>Calculadora de Talla Fetal 3D</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f8ff;
+            background: linear-gradient(135deg, #f0f8ff, #e6e6e6);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -27,21 +17,31 @@
             perspective: 1000px;
         }
         .container {
-            background: linear-gradient(145deg, #e6e6e6, #ffffff);
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 20px 20px 60px #d1d9e6, -20px -20px 60px #ffffff;
-            transform: rotateX(10deg) rotateY(-10deg);
-            transition: transform 0.3s ease;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.1),
+                0 1px 8px rgba(0, 0, 0, 0.05),
+                0 20px 40px rgba(255, 255, 255, 0.8) inset;
+            transform: translateZ(20px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             margin-bottom: 20px;
+            max-width: 400px;
+            width: 100%;
         }
         .container:hover {
-            transform: rotateX(0deg) rotateY(0deg);
+            transform: translateZ(30px);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.15),
+                0 3px 10px rgba(0, 0, 0, 0.07),
+                0 25px 50px rgba(255, 255, 255, 0.9) inset;
         }
         h1 {
             color: #4a90e2;
             text-align: center;
             margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
         .input-group {
             margin-bottom: 20px;
@@ -50,27 +50,38 @@
             display: block;
             margin-bottom: 5px;
             color: #5a6d8f;
+            font-weight: bold;
         }
         input {
-            width: 100%;
+            width: calc(100% - 20px);
             padding: 10px;
             border: none;
             border-radius: 10px;
             background-color: #e0e9f5;
             color: #333;
+            box-shadow: 
+                inset 2px 2px 5px rgba(0, 0, 0, 0.05),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.5);
         }
         button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: none;
             border-radius: 10px;
-            background-color: #4a90e2;
+            background: linear-gradient(145deg, #4a90e2, #3f7ac5);
             color: white;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.1),
+                0 1px 3px rgba(0, 0, 0, 0.08);
         }
         button:hover {
-            background-color: #357abd;
+            background: linear-gradient(145deg, #3f7ac5, #4a90e2);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 7px 14px rgba(0, 0, 0, 0.12),
+                0 3px 6px rgba(0, 0, 0, 0.08);
         }
         #result {
             margin-top: 20px;
@@ -80,20 +91,27 @@
             text-align: center;
             font-weight: bold;
             color: #4a90e2;
+            box-shadow: 
+                inset 2px 2px 5px rgba(0, 0, 0, 0.05),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.5);
         }
         footer {
             text-align: center;
             color: #5a6d8f;
             padding: 10px;
             width: 100%;
-            background-color: #e0e9f5;
+            background-color: rgba(224, 233, 245, 0.7);
             border-radius: 10px 10px 0 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Calculadora de Talla Fetal </h1>
+        <h1>Calculadora de Talla Fetal</h1>
         <div class="input-group">
             <label for="femur">Longitud del Fémur (cm):</label>
             <input type="number" id="femur" step="0.01" required>
@@ -101,11 +119,9 @@
         <button onclick="calcularTallaFetal()">Calcular Talla Fetal</button>
         <div id="result"></div>
     </div>
-
     <footer>
         Derechos reservados a MiMaternoFetal.cl
     </footer>
-
     <script>
         function calcularTallaFetal() {
             const femur = parseFloat(document.getElementById('femur').value);
@@ -117,9 +133,5 @@
             document.getElementById('result').innerHTML = `La talla fetal estimada es: ${tallaFetal.toFixed(2)} cm`;
         }
     </script>
-</body>
-</html>
-<!-- partial -->
-  
 </body>
 </html>
