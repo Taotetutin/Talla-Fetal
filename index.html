@@ -3,135 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Talla Fetal 3D</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #f0f8ff, #e6e6e6);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            perspective: 1000px;
-        }
-        .container {
-            background: linear-gradient(145deg, #ffffff, #f0f0f0);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.1),
-                0 1px 8px rgba(0, 0, 0, 0.05),
-                0 20px 40px rgba(255, 255, 255, 0.8) inset;
-            transform: translateZ(20px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 20px;
-            max-width: 400px;
-            width: 100%;
-        }
-        .container:hover {
-            transform: translateZ(30px);
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.15),
-                0 3px 10px rgba(0, 0, 0, 0.07),
-                0 25px 50px rgba(255, 255, 255, 0.9) inset;
-        }
-        h1 {
-            color: #4a90e2;
-            text-align: center;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-        .input-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #5a6d8f;
-            font-weight: bold;
-        }
-        input {
-            width: calc(100% - 20px);
-            padding: 10px;
-            border: none;
-            border-radius: 10px;
-            background-color: #e0e9f5;
-            color: #333;
-            box-shadow: 
-                inset 2px 2px 5px rgba(0, 0, 0, 0.05),
-                inset -2px -2px 5px rgba(255, 255, 255, 0.5);
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(145deg, #4a90e2, #3f7ac5);
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 
-                0 4px 6px rgba(0, 0, 0, 0.1),
-                0 1px 3px rgba(0, 0, 0, 0.08);
-        }
-        button:hover {
-            background: linear-gradient(145deg, #3f7ac5, #4a90e2);
-            transform: translateY(-2px);
-            box-shadow: 
-                0 7px 14px rgba(0, 0, 0, 0.12),
-                0 3px 6px rgba(0, 0, 0, 0.08);
-        }
-        #result {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e0e9f5;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-            color: #4a90e2;
-            box-shadow: 
-                inset 2px 2px 5px rgba(0, 0, 0, 0.05),
-                inset -2px -2px 5px rgba(255, 255, 255, 0.5);
-        }
-        footer {
-            text-align: center;
-            color: #5a6d8f;
-            padding: 10px;
-            width: 100%;
-            background-color: rgba(224, 233, 245, 0.7);
-            border-radius: 10px 10px 0 0;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <title>Calculadora de Talla Fetal</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Calculadora de Talla Fetal</h1>
-        <div class="input-group">
-            <label for="femur">Longitud del Fémur (cm):</label>
-            <input type="number" id="femur" step="0.01" required>
-        </div>
-        <button onclick="calcularTallaFetal()">Calcular Talla Fetal</button>
-        <div id="result"></div>
-    </div>
-    <footer>
-        Derechos reservados a MiMaternoFetal.cl
-    </footer>
-    <script>
-        function calcularTallaFetal() {
-            const femur = parseFloat(document.getElementById('femur').value);
-            if (isNaN(femur) || femur <= 0) {
-                alert('Por favor, ingrese una longitud de fémur válida.');
-                return;
-            }
-            const tallaFetal = 6.18 + (0.59 * femur);
-            document.getElementById('result').innerHTML = `La talla fetal estimada es: ${tallaFetal.toFixed(2)} cm`;
-        }
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const CalculadoraTallaFetal = () => {
+            const [femurLength, setFemurLength] = React.useState('');
+            const [result, setResult] = React.useState(null);
+            const [error, setError] = React.useState('');
+
+            const calculateFetalHeight = () => {
+                const length = parseFloat(femurLength);
+                if (isNaN(length) || length <= 0) {
+                    setError('Por favor, ingrese un valor válido.');
+                    setResult(null);
+                    return;
+                }
+
+                const fetalHeight = ((0.55 * length) + 8.358).toFixed(2);
+                setResult(fetalHeight);
+                setError('');
+            };
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 flex flex-col items-center justify-center p-4 font-sans">
+                    <div className="w-full max-w-md bg-white bg-opacity-80 backdrop-blur-lg rounded-3xl shadow-lg overflow-hidden mb-8">
+                        <div className="p-8">
+                            <h1 className="text-3xl font-semibold text-gray-800 mb-6 text-center">Calculadora de Talla Fetal</h1>
+                            
+                            <div className="mb-6">
+                                <label htmlFor="femurLength" className="block text-sm font-medium text-gray-700 mb-2">
+                                    Longitud del Fémur (mm):
+                                </label>
+                                <input
+                                    type="number"
+                                    id="femurLength"
+                                    value={femurLength}
+                                    onChange={(e) => setFemurLength(e.target.value)}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+                                    placeholder="Ingrese la longitud en milímetros"
+                                />
+                            </div>
+
+                            <button
+                                onClick={calculateFetalHeight}
+                                className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium py-2 px-4 rounded-lg hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out transform hover:scale-105"
+                            >
+                                Calcular Talla Fetal
+                            </button>
+
+                            {error && (
+                                <div className="mt-4 flex items-center text-red-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                                    </svg>
+                                    <span>{error}</span>
+                                </div>
+                            )}
+
+                            {result && (
+                                <div className="mt-6 text-lg font-semibold text-center text-indigo-600">
+                                    Talla fetal estimada: {result} cm
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <footer className="text-center text-sm text-gray-600">
+                        Todos los derechos reservados a MiMaternofetal.cl
+                    </footer>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<CalculadoraTallaFetal />, document.getElementById('root'));
     </script>
 </body>
 </html>
